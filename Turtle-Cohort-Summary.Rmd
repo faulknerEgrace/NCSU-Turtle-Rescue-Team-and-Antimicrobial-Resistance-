@@ -1,0 +1,115 @@
+---
+title: "Turtle Cohort Summary"
+author: "Grace Faulkner"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    code_folding: show
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+editor_options: 
+  markdown: 
+    wrap: 100
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Turtle Rescue Team AMR Cohort Summary 
+
+Antibiotic Resistance (AR) can be found beyond healthcare settings and presents a One Health challenge, impacting human, animal, and environmental health. Wildlife could serve as sentinels for AR in the environment. AR has been described in chelonians, including marine, freshwater, and terrestrial species, suggesting that wildlife and their environments could be bioindicators of AR pollution and transmission. 
+
+
+The bacterial flora of North Carolina (NC) wild turtles is not well-understood, and the presence and characteristics of resistant bacteria in this population have not been previously described. Rhea Lab conducted a pilot study to assess the feasibility of using admitted NC State University (NCSU) Turtle Rescue Team (TRT) native NC turtle patients as bioindicators of local AR in the environment.
+
+Rhea Lab in collaboration with the North Carolina State University College of Veterinary Medicine Turtle Rescue Team (TRT) collected turtle demographic information and biological cloacal samples during TRT Intake and Discharge Procedures from admitted turtles from April 1,2023 to June 30, 2023 at NCSU CVM TRT. The study consisted of rolling admissions of hospitalized turtle cases. Inclusion criteria included surrender to TRT and native NC testudine species. Cloacal samples were processed with a focus on isolation of Escherichia coli (E. coli) and Salmonella, due to their presence in turtle GI flora and the environment, pathogenic potential in humans and animals, and demonstrated AR. 
+
+The study goals were 1).Identify the presence of and characterize antimicrobial resistant bacteria among TRT turtles and 2). Assess the feasibility of using admitted TRT native NC turtle patients as bioindicators of local antimicrobial resistance in the environment. 
+ 
+**This is preliminary data and does not support final conclusions.** 
+
+```{r, echo= FALSE}
+##library ggplot 
+library(ggplot2)
+##Import collected demographic and cloacal sample CSV file
+Cohort <- read.csv("C:\\Users\\gfaulkn2\\Documents\\Turtle\\CohortMerge.csv", header=TRUE, stringsAsFactors=FALSE)
+
+#install.packages("readxl") - install Read Excel Package 
+library(readxl)
+
+##install lubridate package 
+library(lubridate)
+
+##read piping 
+library(dplyr)
+
+##tabyl functions
+library(janitor)
+
+##Import Epi Info file
+EpiInfo <- read_xlsx(path="C:\\Users\\gfaulkn2\\Documents\\Turtle\\TRT_EpiInfo_Cohort.xlsx")
+
+##Import Dashboard File
+Dashboard <- read_xlsx(path="C:\\Users\\gfaulkn2\\Documents\\Turtle\\Turtle Cohort.xlsx")
+```
+## Turtle Cohort 
+This cohort was made up of **102 turtles** that were admitted to TRT. More females than males were admitted to the cohort and more were adults than juveniles. 8 different turtle species were represented in this cohort and the most common species was **Eastern Box Turtle**. Turtles came from across NC from **18 different counties**. The most common reason for admittance was **vehicular trauma** (hit by car). 
+
+
+```{r}
+##How many turtles are in the study cohort 
+nrow(Dashboard)
+
+##How many males/females in the study cohort
+ggplot(data=Dashboard, aes(x=Sex)) + geom_bar(color="lightgreen", fill= "lightgreen") + theme_minimal() + ggtitle("Study Population by Sex") + ylab("Number of Turtles") + scale_x_discrete(labels=c("F"= "Female", "M"="Male", "UNK"= "Unknown")) + geom_text(stat='count', aes(label=..count..), hjust=1, size=4)
+
+
+##What is the species breakdown 
+ggplot(data=EpiInfo, aes(x=TurtleSpecies)) + geom_bar(color="lightgreen", fill="lightgreen") + theme_minimal() + ggtitle("Study Population by Species") + ylab("Number of Turtles") + xlab("Turtle Species") + coord_flip() + geom_text(stat='count', aes(label=..count..), hjust=1, size=3)
+
+##What is the age class distribution 
+ggplot(data=EpiInfo, aes(x=Ageclass)) + geom_bar(color="lightgreen", fill="lightgreen") + theme_minimal() + ggtitle("Study Population by Age Class") + xlab("Age Class") + ylab("Number of Turtles") + geom_text(stat='count', aes(label=..count..), hjust=.5, size=4)
+
+##How many turtles came from each county  
+table(Dashboard['County'])
+
+#Plot presenting conditions 
+ggplot(data=EpiInfo, aes(x=PresentingCondition)) + geom_bar(color="lightgreen", fill="lightgreen") + theme_minimal() + ggtitle("Admitted Turtles by Presenting Condition") + ylab("Number of Turtles") + coord_flip() + geom_text(stat='count', aes(label=..count..), hjust=1, size=3) + theme(plot.title = element_text(hjust = 0, size=11, face="bold"))
+
+#Plot Outcomes 
+ggplot(data=Dashboard, aes(x=Outcome)) + geom_bar(color="lightgreen", fill="lightgreen")+ theme_minimal() +ggtitle("Study Population by Outcome") + ylab("Number of Turtles") + scale_x_discrete(labels=c("C"= "Remain in Clinic as of 7/26/23", "D"="Death (non-Euthanasia)", "E"= "Euthanasia (at any time)", "R"= "Released from Clinic")) + geom_text(stat='count', aes(label=..count..), vjust=.5, size=4)
+
+
+```
+
+## Sample Collection 
+During intake and before discharge, each cohort member was swabbed for a cloacal sample. There were 93 samples collected at Intake and 42 samples collected at Discharge. 
+```{r}
+##How many cloacal samples were collected at intake 
+table(Dashboard['IntakeCollected'])
+
+##How many cloacal samples were collected at discharge 
+table(Dashboard['DischargeCollected'])
+
+```
+
+## Antibiotic Usage
+At the clinic, the turtles could be treated with antibiotics, which could introduce AR or AR pollution in the environment. Of those admitted to the cohort, 58 turtles were treated with antibiotics. Most turtles were treated with antibiotics due to fractures. Ceftazidime was the most commonly used antibiotic. 
+```{r}
+##How many turtles were treated with Antibiotics
+table(Dashboard['AntibtioticsAdministered'])
+
+##What was the purpose of antibiotic 
+table(EpiInfo$PurposeofAntimicrobial)
+table(EpiInfo$PurposeofAntimicrobial2)
+
+
+##What antibiotics were used  
+table(EpiInfo$AntimicrobialDrug)
+
+##antibiotic use by outcome
+table(Dashboard$`AntibtioticsAdministered`, Dashboard$Outcome)
+
+```
