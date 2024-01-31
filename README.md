@@ -8,4 +8,6 @@ The study goals were 1).Identify the presence of and characterize antimicrobial 
 
 Using these data, I described the initial cohort and AR data, which can be found in Rmarkdown, an ESRI Dashboard, and powerpoint summary. 
 
+ESRI Dashboard can be accessed here: https://www.arcgis.com/apps/dashboards/540b9c72c0954636b9d43ffb3c14dc7c
+
 **This is preliminary data and does not support final conclusions.**
