@@ -6,7 +6,7 @@ Rhea Lab in collaboration with the North Carolina State University College of Ve
 
 The study goals were 1).Identify the presence of and characterize antimicrobial resistant bacteria among TRT turtles and 2). Assess the feasibility of using admitted TRT native NC turtle patients as bioindicators of local antimicrobial resistance in the environment. 
 
-Using these data, I described the initial cohort and AR data, which can be found in Rmarkdown, an ESRI Dashboard, and powerpoint summary. 
+I created the survey instrument using EpiInfo for data collection of demographic and cloacaal sample testing information. Using these data, I described the initial cohort and AR data, which can be found in Rmarkdown, an ESRI Dashboard, and powerpoint. 
 
 ESRI Dashboard can be accessed here: https://www.arcgis.com/apps/dashboards/540b9c72c0954636b9d43ffb3c14dc7c
 
