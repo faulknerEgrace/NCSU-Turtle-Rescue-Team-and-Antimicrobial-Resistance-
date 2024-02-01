@@ -8,6 +8,8 @@ The study goals were 1).Identify the presence of and characterize antimicrobial 
 
 I created the survey instrument using EpiInfo for data collection of demographic and cloacaal sample testing information. Using these data, I described the initial cohort and AR data, which can be found in Rmarkdown, an ESRI Dashboard, and powerpoint. 
 
+html preview here: https://htmlpreview.github.io/?https://github.com/faulknerEgrace/NCSU-Turtle-Rescue-Team-and-Antimicrobial-Resistance-/blob/main/Turtle-Cohort-Summary.html 
+
 ESRI Dashboard can be accessed here: https://www.arcgis.com/apps/dashboards/540b9c72c0954636b9d43ffb3c14dc7c
 
 **This is preliminary data and does not support final conclusions.**
